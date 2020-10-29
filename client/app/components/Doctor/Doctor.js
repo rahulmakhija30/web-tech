@@ -25,6 +25,23 @@ getAllAppointments=()=>{
           
       })
 }
+handleRemove=(email)=>{
+    console.log(email)
+    fetch('/api/account/remove', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email
+        }),
+      })
+      .then(res => res.json())
+      .then(json =>{
+          console.log(json.message)
+          this.getAllAppointments();
+      })
+}
 render(){
     let AppointmentList=null;
     if(this.state.gotAppointment){
@@ -32,9 +49,11 @@ render(){
             return(
                 <div key={index}>
                     <p>
-                        {appointment.Date}
-                        {appointment.Reason}
+                    Date:   {appointment.Date}
+                    Reason:{appointment.Reason}
+                    Email : {appointment.email}
                     </p>
+                    <button onClick={()=>this.handleRemove(appointment.email)}>Remove</button>
                 </div>
             )
         })

@@ -123,7 +123,11 @@ app.post('/api/account/book', (req, res, next) => {
         if(err) throw err;
         users.forEach(function(myDoc){
           //console.log(myDoc.email)
+          //appointments.push({myDoc.email:myDoc.currentAppointment[0]})
+          if(myDoc.currentAppointment[0]){
+          myDoc.currentAppointment[0]['email']=myDoc.email
           appointments.push(myDoc.currentAppointment[0])
+          }
         })
         return res.send({
           success:true,
@@ -132,4 +136,37 @@ app.post('/api/account/book', (req, res, next) => {
       })
       
     });
+
+    app.post('/api/account/remove',(req,res,next) => {
+      let email = req.body.email
+      console.log(req.body)
+      User.find({email:email},function(err,users){
+        if(err) throw err;
+        user=users[0]
+        User.updateMany({
+          _id: user._id,
+        }, {
+          $push: {
+            previousAppointments : user.currentAppointment[0]
+          },
+          $pop: {
+            currentAppointment: 1
+          }
+        }, null, (err, sessions) => {
+          if (err) {
+            console.log(err);
+            return res.send({
+              success: false,
+              message: 'Error: Server error'
+            });
+          }
+          return res.send({
+            success: true,
+            message: 'Deleted'
+          });
+        });
+
+      })
+    })
+
 };

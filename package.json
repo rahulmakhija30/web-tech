@@ -1,13 +1,6 @@
 {
-  "name": "MERN-boilerplate",
+  "name": "Clinic Management",
   "version": "1.0.0",
-  "description": "MERN stack project boilerplate",
-  "author": "Eugene Cheung",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arkon/MERN-boilerplate.git"
-  },
-  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "webpack -p --progress --profile --colors && node server",

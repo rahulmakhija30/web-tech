@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
   currentAppointment:{
     type: Array,
     default:[]
+  },
+  previousAppointments:{
+    type : Array,
+    default:[]
   }
 });
 UserSchema.methods.generateHash = function(password) {
