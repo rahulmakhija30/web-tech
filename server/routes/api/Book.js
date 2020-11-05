@@ -1,11 +1,14 @@
 const User = require('../../models/User');
+const Appointments = require('../../models/Appointment');
 
 module.exports = (app) => {
 app.post('/api/account/book', (req, res, next) => {
     const { body } = req;
     let {email,reason,name,date}=body;
+    let d=new Date(date)
     email = email.toLowerCase();
     email = email.trim();
+    let strDate=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()
 
     User.find({
       email: email
@@ -17,7 +20,6 @@ app.post('/api/account/book', (req, res, next) => {
           message: 'Error: server error'
         });
       }
-      console.log("Users",users)
       if (users.length != 1) {
         return res.send({
           success: false,
@@ -35,7 +37,7 @@ app.post('/api/account/book', (req, res, next) => {
         _id: user._id,
       }, {
         $push: {
-          currentAppointment: {'Date':date,'Reason':reason}
+          currentAppointment: {'Date':date,'Reason':reason,'Name':name}
         }
       }, null, (err, sessions) => {
         if (err) {
@@ -45,25 +47,21 @@ app.post('/api/account/book', (req, res, next) => {
             message: 'Error: Server error'
           });
         }
-        console.log("PREV",user.currentAppointment);
-        return res.send({
-          success: true,
-          message: 'Good'
-        });
       });
-     
-     /* return res.send({
+      Appointments.findOneAndUpdate({date:strDate},{
+        $push: {
+          slots: d
+        }
+      },{upsert:true},
+  (err,date)=>{
+        if(err){
+          console.log(err)
+        }
+        return res.send({
           success:true,
-          message:'Success'
-      });*/
-
-      // Otherwise correct user
-
-     /*   return res.send({
-          success: true,
-          message: 'Valid sign in',
-          token: doc._id
-        });*/
+          message:'Booked!'
+        })
+      })
       });
       
     });
@@ -99,19 +97,6 @@ app.post('/api/account/book', (req, res, next) => {
           success: true,
           currentAppointment : user.currentAppointment[0]
         })
-       
-       /* return res.send({
-            success:true,
-            message:'Success'
-        });*/
-  
-        // Otherwise correct user
-  
-       /*   return res.send({
-            success: true,
-            message: 'Valid sign in',
-            token: doc._id
-          });*/
         });
     });
     app.get('/api/account/get', (req, res, next) => {
@@ -122,8 +107,6 @@ app.post('/api/account/book', (req, res, next) => {
       User.find({},function(err,users){
         if(err) throw err;
         users.forEach(function(myDoc){
-          //console.log(myDoc.email)
-          //appointments.push({myDoc.email:myDoc.currentAppointment[0]})
           if(myDoc.currentAppointment[0]){
           myDoc.currentAppointment[0]['email']=myDoc.email
           appointments.push(myDoc.currentAppointment[0])
@@ -139,7 +122,6 @@ app.post('/api/account/book', (req, res, next) => {
 
     app.post('/api/account/remove',(req,res,next) => {
       let email = req.body.email
-      console.log(req.body)
       User.find({email:email},function(err,users){
         if(err) throw err;
         user=users[0]
@@ -166,6 +148,35 @@ app.post('/api/account/book', (req, res, next) => {
           });
         });
 
+      })
+    })
+    app.post('/api/account/disabled',(req,res,next)=>{
+      let dt= new Date(req.body.date)
+      let year=dt.getFullYear()
+      let month=dt.getMonth()
+      let date=dt.getDate()
+      let strDate2=year+'-'+month+'-'+date
+      let bookedAppointments=[]
+      Appointments.find({date:strDate2},function(err,appointments){
+        if(err) {
+          console.log(err);
+          return res.send({
+            success: false,
+            message: 'Error: Server error'
+          });
+        }
+        if(appointments.length==1){
+        return res.send({
+          success:true,
+          appointments:appointments[0].slots
+        })
+        }
+        else{
+          return res.send({
+            success:true,
+            appointments:[]
+          })
+        }
       })
     })
 

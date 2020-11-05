@@ -22,11 +22,9 @@ getAllAppointments=()=>{
               gotAppointment:true,
               AppointmentResponse:json.appointments
           })
-          
       })
 }
 handleRemove=(email)=>{
-    console.log(email)
     fetch('/api/account/remove', {
         method: 'POST',
         headers: {
@@ -45,13 +43,17 @@ handleRemove=(email)=>{
 render(){
     let AppointmentList=null;
     if(this.state.gotAppointment){
-        AppointmentList=this.state.AppointmentResponse.map((appointment,index)=>{
+        let sortedAppointmentResponse=this.state.AppointmentResponse
+        sortedAppointmentResponse.sort(function(a,b){
+            return new Date(a.Date)-new Date(b.Date)
+        })
+        AppointmentList=sortedAppointmentResponse.map((appointment,index)=>{
             return(
                 <div key={index}>
                     <p>
-                    Date:   {appointment.Date}
-                    Reason:{appointment.Reason}
-                    Email : {appointment.email}
+                    Date:   {new Date(appointment.Date).toLocaleString()}<br/>
+                    Reason:{appointment.Reason}<br/>
+                    Name : {appointment.Name}
                     </p>
                     <button onClick={()=>this.handleRemove(appointment.email)}>Remove</button>
                 </div>
@@ -63,7 +65,7 @@ render(){
         <div>
         <h>Doctor's Page</h>
         <div className="appointments">
-        <button onClick={this.getAllAppointments}>GET
+        <button onClick={this.getAllAppointments}>Get Appointments
         </button>
         {AppointmentList}
         </div>
