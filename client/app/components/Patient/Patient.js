@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Collapsible from 'react-collapsible';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
 class Patient extends Component{
     constructor(props){
         super(props);
@@ -8,14 +13,15 @@ class Patient extends Component{
         name:'',
         date:new Date().setMinutes(0,0,0),
         reason:'',
-        disabled:[]
+        disabled:[],
+        previous:[]
     };
     this.bookAppoinment=this.bookAppoinment.bind(this);
     this.handleNameChange=this.handleNameChange.bind(this);
 }
     componentDidMount(){
         this.fetchAppointment();
-
+        this.getPreviousAppointments(this.props.email);
     }
     bookAppoinment=()=>{
         console.log(this.state.date,typeof(this.state.date))
@@ -91,6 +97,24 @@ class Patient extends Component{
             }
           })
     }
+    getPreviousAppointments=(email)=>{
+        fetch('/api/account/previous',{
+            method: 'POST',
+            headers:{
+            'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                email:email
+            }),
+        })
+        .then(res=>res.json())
+        .then(json=>{
+            console.log(json)
+            this.setState({
+                previous:json.previous
+            })
+        })
+    }
     handleNameChange=(e)=>{
         this.setState({
             name:e.target.value
@@ -113,6 +137,7 @@ class Patient extends Component{
         return day !== 0 && day !== 6;
       };
     render(){
+        let previousAppointmentList=[]
         let closedTimes=[]
         for( var i=0;i<9;i++){
             let d1=new Date()
@@ -124,6 +149,17 @@ class Patient extends Component{
             d2.setHours(i)
             d2.setMinutes(30)
             closedTimes.push(d2)
+        }
+        if(this.state.previous){
+             previousAppointmentList=this.state.previous.map((appointment,index)=>{
+                return(
+                    <div key={index}>
+                        Date:{new Date(appointment.Date).toLocaleString()}<br/>
+                        Reason:{appointment.Reason}<br/>
+                        Prescribed Medicines:{appointment.Prescription}
+                    </div>
+                )
+            })
         }
         //console.log("closed",closedTimes)
         return (
@@ -146,6 +182,22 @@ class Patient extends Component{
                     <button onClick={this.bookAppoinment}>Book an appointment!</button>
                 </div>
                 <div className="current">
+                </div>
+                <div>
+                <Accordion style={{width:'20%',marginLeft:'0%',borderRadius:'10px'}}>
+                    <AccordionSummary
+                    //expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                    >
+                    <Typography>Show Previous Appointments</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails style={{overflowY:'scroll',maxHeight:'200px'}}>
+                    <Typography>
+                       {previousAppointmentList}
+                    </Typography>
+                    </AccordionDetails>
+                </Accordion>
                 </div>
             </div>
         );
