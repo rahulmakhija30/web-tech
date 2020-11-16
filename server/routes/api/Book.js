@@ -65,9 +65,8 @@ app.post('/api/account/book', (req, res, next) => {
       });
       
     });
-    app.post('/api/account/fetch', (req, res, next) => {
-      const {body}=req;
-      let email=body.email;
+    app.get('/api/account/fetch/:email', (req, res, next) => {
+      let email = req.params.email
       email = email.toLowerCase();
       email = email.trim();
       User.find({
@@ -155,8 +154,8 @@ app.post('/api/account/book', (req, res, next) => {
 
       })
     })
-    app.post('/api/account/disabled',(req,res,next)=>{
-      let dt= new Date(req.body.date)
+    app.get('/api/account/disabled/:date',(req,res,next)=>{
+      let dt= new Date(req.params.date)
       let year=dt.getFullYear()
       let month=dt.getMonth()
       let date=dt.getDate()
@@ -184,8 +183,8 @@ app.post('/api/account/book', (req, res, next) => {
         }
       })
     })
-    app.post('/api/account/previous',(req,res,next)=>{
-      let email = req.body.email
+    app.get('/api/account/previous/:email',(req,res,next)=>{
+      let email = req.params.email
       if(email){
       User.find({email:email},(err,users)=>{
         if(err){

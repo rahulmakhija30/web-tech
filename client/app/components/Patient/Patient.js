@@ -52,16 +52,12 @@ class Patient extends Component{
     }
     fetchDisabled=(date)=>{
         console.log(date)
-        fetch('/api/account/disabled', {
-            method: 'POST',
+        fetch('/api/account/disabled/'+date, {
+            method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
-            body:
-                JSON.stringify({
-                date:date        
-                })
             
           })
           .then(res=>res.json())
@@ -77,14 +73,11 @@ class Patient extends Component{
           })
     }
     fetchAppointment=()=>{
-        fetch('/api/account/fetch', {
-            method: 'POST',
+        fetch('/api/account/fetch/'+this.props.email, {
+            method: 'GET',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              email: this.props.email
-            }),
           })
           .then(res => res.json())
           .then(json=>{
@@ -98,14 +91,14 @@ class Patient extends Component{
           })
     }
     getPreviousAppointments=(email)=>{
-        fetch('/api/account/previous',{
-            method: 'POST',
+        fetch('/api/account/previous/'+email,{
+            method: 'GET',
             headers:{
             'Content-Type': 'application/json'
             },
-            body:JSON.stringify({
+           /* body:JSON.stringify({
                 email:email
-            }),
+            }),*/
         })
         .then(res=>res.json())
         .then(json=>{
