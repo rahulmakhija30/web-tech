@@ -6,6 +6,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const Appointments = require('./models/Appointment')
 
 const config = require('../config/config');
 const webpackConfig = require('../webpack.config');

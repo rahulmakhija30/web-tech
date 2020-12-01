@@ -30,17 +30,19 @@ getAllAppointments=()=>{
           })
       })
 }
-handleRemove=(email,date)=>{
-    let tar=document.querySelector('#'+email)
+handleRemove=(email,date,name,reason)=>{
+    let tar=document.querySelector('#'+email.slice(0,email.indexOf('@')))
     fetch('/api/account/remove', {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: email,
           date:date,
-          prescription:tar.value
+          prescription:tar.value,
+          name:name,
+          reason:reason
         }),
       })
       .then(res => res.json())
@@ -103,8 +105,8 @@ render(){
                     </Typography>
                     </AccordionDetails>
                 </Accordion>
-                    <textarea id={appointment.email} placeholder="Enter prescription"></textarea>
-                    <button onClick={()=>this.handleRemove(appointment.email,appointment.Date)}>Remove</button>
+                    <textarea id={appointment.email.slice(0,appointment.email.indexOf('@'))} placeholder="Enter prescription"></textarea>
+                    <button onClick={()=>this.handleRemove(appointment.email,appointment.Date,appointment.Name,appointment.Reason)}>Remove</button>
                 </div>
             )
         })

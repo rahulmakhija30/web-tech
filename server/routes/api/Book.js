@@ -1,5 +1,8 @@
 const User = require('../../models/User');
 const Appointments = require('../../models/Appointment');
+const { PDFDocument,StandardFonts,rgb } = require('pdf-lib');
+const fs = require('fs')
+const nodemailer = require('nodemailer')
 
 module.exports = (app) => {
 app.post('/api/account/book', (req, res, next) => {
@@ -120,10 +123,93 @@ app.post('/api/account/book', (req, res, next) => {
       
     });
 
-    app.post('/api/account/remove',(req,res,next) => {
-      let email = req.body.email
+    app.delete('/api/account/remove',(req,res,next) => {
+      /*let email = req.body.email
       let date=req.body.date
-      let prescription = req.body.prescription
+      let prescription = req.body.prescription*/
+      let {email,date,prescription,name,reason}=req.body
+      async function myfunc(){
+        const pdfDoc = await PDFDocument.create()
+ 
+        // Embed the Times Roman font
+        //const timesRomanFont =  pdfDoc.embedFont(StandardFonts.TimesRoman)
+         
+        // Add a blank page to the document
+        const page = await pdfDoc.addPage()
+        pdfDoc.setTitle('Medical Prescription')
+         
+        // Get the width and height of the page
+        const { width, height } = page.getSize()
+         
+        // Draw a string of text toward the top of the page
+        const fontSize = 30
+        page.drawText('Medical Prescription', {
+          x: 150,
+          y: 700,
+          size: fontSize,
+          //font: timesRomanFont,
+          color: rgb(0, 0.53, 0.71),
+        })
+        page.drawText("Name :"+name, {
+          x: 50,
+          y: 650,
+          size: 10,
+          //font: timesRomanFont,
+          color: rgb(0, 0, 0),
+        })
+        page.drawText("Date :"+new Date(date).toLocaleString(), {
+          x: 250,
+          y: 650,
+          size: 10,
+          //font: timesRomanFont,
+          color: rgb(0, 0, 0),
+        })
+        page.drawText("Reason :"+reason, {
+          x: 450,
+          y: 650,
+          size: 10,
+          //font: timesRomanFont,
+          color: rgb(0, 0, 0),
+        })
+        page.drawText("Prescription :"+prescription, {
+          x: 50,
+          y: 620,
+          size: 10,
+          //font: timesRomanFont,
+          color: rgb(0, 0, 0),
+        })
+         
+        // Serialize the PDFDocument to bytes (a Uint8Array)
+        fs.writeFileSync('./test1.pdf', await pdfDoc.save());
+        let transport = nodemailer.createTransport({
+          service:'gmail',
+          auth:{
+            user : 'clinic.webtech@gmail.com',
+            pass: 'clinicwebtech123'
+          }
+        });
+        let message={
+          from:'clinic.webtech@gmail.com',
+          to:email,
+          subject:'Medical Prescription',
+          text:'PFA prescription for your appointment.',
+          attachments:[
+            {
+              name:'prescription.pdf',
+              path:'./test1.pdf'
+            }
+          ]
+        }
+        transport.sendMail(message,function(){
+          console.log("Email Sent")
+          fs.unlink('./test1.pdf',function(){
+            console.log("Deleted")
+          })
+        })
+        //const pdfBytes =  await pdfDoc.save()
+      }
+      myfunc();
+     
       User.find({email:email},function(err,users){
         if(err) throw err;
         user=users[0]
