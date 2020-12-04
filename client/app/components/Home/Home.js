@@ -3,6 +3,7 @@ import 'whatwg-fetch';
 import './Home.css';
 import '../Patient/Patient'
 import Doctor from '../Doctor/Doctor'
+import FormPatient from '../Patient/FormPatient';
 
 import {
   getFromStorage,
@@ -297,6 +298,7 @@ class Home extends Component {
     return (
       <div>
         <Patient email={this.state.mail}/>
+        <FormPatient/>
         <button onClick={this.logout}>Logout</button>
       </div>
     );
