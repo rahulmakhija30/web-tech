@@ -2,7 +2,7 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 
-class MyForm extends Component{
+class FormPatient extends Component{
 
     constructor(props){
         super(props)
