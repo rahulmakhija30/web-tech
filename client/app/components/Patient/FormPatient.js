@@ -9,13 +9,13 @@ class FormPatient extends Component{
         this.state = {
             formName: 'John Doe',
             formEmail: 'johndoe@example.com',
-            formAge: '42',
-            formHeight: '169',
-            formWeight: '72',
-            formBS: '110',
-            formDia: '120',
-            formSys: '80',
-            formHemoglobin: '12'
+            formAge: 42,
+            formHeight: 169,
+            formWeight: 72,
+            formBS: 110,
+            formDia: 120,
+            formSys: 80,
+            formHemoglobin: 12
         }
     }
 
@@ -101,31 +101,31 @@ class FormPatient extends Component{
                 <br></br>
 
                 <label>Age: </label>
-                <input type="text" value = {this.state.formAge} onChange = {this.updateAge}></input>
+                <input type="number" value = {this.state.formAge} onChange = {this.updateAge}></input>
                 <br></br>
 
                 <label>Height: </label>
-                <input type="text" value = {this.state.formHeight} onChange = {this.updateHeight}></input>
+                <input type="number" value = {this.state.formHeight} onChange = {this.updateHeight}></input>
                 <br></br>
 
                 <label>Weight: </label>
-                <input type="text" value = {this.state.formWeight} onChange = {this.updateWeight}></input>
+                <input type="number" value = {this.state.formWeight} onChange = {this.updateWeight}></input>
                 <br></br>
 
                 <label>Blood Sugar: </label>
-                <input type="text" value = {this.state.formBS} onChange = {this.updateBS}></input>
+                <input type="number" value = {this.state.formBS} onChange = {this.updateBS}></input>
                 <br></br>
 
                 <label>Blood pressure Diastolic: </label>
-                <input type="text" value = {this.state.formDia} onChange = {this.updateDia}></input>
+                <input type="number" value = {this.state.formDia} onChange = {this.updateDia}></input>
                 <br></br>
 
                 <label>Blood pressure Systolic: </label>
-                <input type="text" value = {this.state.formSys} onChange = {this.updateSys}></input>
+                <input type="number" value = {this.state.formSys} onChange = {this.updateSys}></input>
                 <br></br>
 
                 <label>Hemoglobin: </label>
-                <input type="text" value = {this.state.formHemoglobin} onChange = {this.updateHemoglobin}></input>
+                <input type="number" value = {this.state.formHemoglobin} onChange = {this.updateHemoglobin}></input>
                 <br></br>
 
                 <button type="submit">Submit the info!</button>
