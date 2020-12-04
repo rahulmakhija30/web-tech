@@ -197,4 +197,5 @@ class Patient extends Component{
     }
 }
 
+
 export default Patient;
