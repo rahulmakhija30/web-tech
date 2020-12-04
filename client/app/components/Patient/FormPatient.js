@@ -134,4 +134,4 @@ class MyForm extends Component{
     }
 }
 
-export default PatientHome;
+export default FormPatient;
