@@ -11,7 +11,7 @@ const FormPatientSchema = new mongoose.Schema({
   },
   age: {
     type: Number,
-    default: 0
+    default: 18
   },
   height: {
     type: Array,
@@ -39,4 +39,4 @@ const FormPatientSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('FormPatient', FormPatientSchema);
+module.exports = mongoose.model('FormPatient', FormPatientSchema, 'users');
