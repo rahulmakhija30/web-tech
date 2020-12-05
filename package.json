@@ -29,6 +29,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.1.0",
     "moment": "^2.29.1",
+    "mongodb": "^3.6.3",
     "mongoose": "^5.10.9",
     "nodemailer": "^6.4.16",
     "nodemon": "^1.17.2",

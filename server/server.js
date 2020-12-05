@@ -6,10 +6,17 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const Appointments = require('./models/Appointment')
+const Appointments = require('./models/Appointment');
+
+const cors          = require('cors');
+const bodyParser    = require('body-parser');
 
 const config = require('../config/config');
 const webpackConfig = require('../webpack.config');
+
+const MongoClient   = require('mongodb').MongoClient;
+const Patient       = require('./models/FormModel');
+const url             = "mongodb://localhost/formPatient";
 
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 8080;
@@ -63,6 +70,57 @@ if (isDev) {
     res.end();
   });
 }
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
+
+app.post('/formPatient', function(req, res){
+  var newUser = new Patient(req.body);
+
+  Patient.find({ email: req.body.email }, function (err, docs) {
+      if (err){
+          console.log(err);
+      }
+
+      else{
+
+          if(docs.length == 0){
+              console.log(newUser.email);
+              newUser.save(function (err, patient) {
+                  if (err) res.send({status:0, result:err});
+                  else res.send({status:1, result:patient});
+              });
+          }
+
+          else{
+              console.log("patient name", newUser.name, " exists");
+              console.log(docs);
+
+              MongoClient.connect(url, function(error, db) {
+                      if(error) throw error;
+                      var dbo = db.db("formPatient");
+                      dbo.collection("users").updateOne({email: newUser.email},
+                          {$set: {
+                              age: newUser.age
+                      }});
+                      dbo.collection("users").updateOne({email: newUser.email},
+                          {
+                              $push:{
+                                  height:             newUser.height[0],
+                                  weight:             newUser.weight[0],
+                                  bloodSugar:         newUser.bloodSugar[0],
+                                  bpDia:              newUser.bpDia[0],
+                                  bpSys:              newUser.bpSys[0],
+                                  hemoglobin:         newUser.hemoglobin[0]
+                              }
+                          })
+                  });
+          }
+
+      }
+  });
+});
 
 app.listen(port, '0.0.0.0', (err) => {
   if (err) {
