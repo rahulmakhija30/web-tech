@@ -1,21 +1,23 @@
 
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
+import axios from 'axios';
+import swal from 'sweetalert';
 
-class FormPatient extends Component{
+
+class MyForm extends Component{
 
     constructor(props){
         super(props)
         this.state = {
             formName: 'John Doe',
             formEmail: 'johndoe@example.com',
-            formAge: 42,
-            formHeight: 169,
-            formWeight: 72,
-            formBS: 110,
-            formDia: 120,
-            formSys: 80,
-            formHemoglobin: 12
+            formAge: '42',
+            formHeight: '169',
+            formWeight: '72',
+            formBS: '110',
+            formDia: '120',
+            formSys: '80',
+            formHemoglobin: '12'
         }
     }
 
@@ -80,11 +82,29 @@ class FormPatient extends Component{
     }
 
     submitTheForm = event => {
-        alert(`${this.state.formName}` + ', your form has been submitted successfully!');
+        swal("Sweet!", "You have submitted your report", "success");
         event.preventDefault();
-        
+        var myFormObj = {
+                            name        : this.state.formName,
+                            email       : this.state.formEmail,
+                            age         : parseInt(this.state.formAge),
+                            height      : parseInt(this.state.formHeight),
+                            weight      : parseInt(this.state.formWeight),
+                            bloodSugar  : parseInt(this.state.formBS),
+                            bpDia       : parseInt(this.state.formDia),
+                            bpSys       : parseInt(this.state.formSys),
+                            hemoglobin  : parseInt(this.state.formHemoglobin)
+        }
+        axios.post('http://localhost:3004/formPatient', myFormObj)
+          .then(function (response) {
+            console.log(response);
+        })
+          .catch(function (error) {
+            console.log(error);
+        });
     }
 
+    
 
 
     render(){
