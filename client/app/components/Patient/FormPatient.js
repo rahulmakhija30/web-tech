@@ -110,7 +110,7 @@ class MyForm extends Component{
     render(){
         return(
             <form onSubmit={this.submitTheForm}>
-                <h1>This is the main form</h1><br></br>
+                <h3>Kindly fill your latest medical report here!</h3><br></br>
 
                 <label>Name: </label>
                 <input type="text" value = {this.state.formName} onChange={this.updateName}></input>
