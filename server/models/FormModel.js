@@ -39,4 +39,4 @@ const FormPatientSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('FormPatient', FormPatientSchema, 'users');
+module.exports = mongoose.model('FormPatient', FormPatientSchema, 'patients');

@@ -19,6 +19,7 @@
     "babel-loader": "^8.0.0-beta.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "chartjs": "^0.3.24",
     "connect-history-api-fallback": "^1.5.0",
     "copy-webpack-plugin": "^4.5.1",
     "cors": "^2.8.5",

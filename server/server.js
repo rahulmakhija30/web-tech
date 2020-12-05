@@ -99,12 +99,12 @@ app.post('/formPatient', function(req, res){
 
               MongoClient.connect(url, function(error, db) {
                       if(error) throw error;
-                      var dbo = db.db("formPatient");
-                      dbo.collection("users").updateOne({email: newUser.email},
+                      var dbo = db.db("clinic_db");
+                      dbo.collection("patients").updateOne({email: newUser.email},
                           {$set: {
                               age: newUser.age
                       }});
-                      dbo.collection("users").updateOne({email: newUser.email},
+                      dbo.collection("patients").updateOne({email: newUser.email},
                           {
                               $push:{
                                   height:             newUser.height[0],

@@ -95,7 +95,7 @@ class MyForm extends Component{
                             bpSys       : parseInt(this.state.formSys),
                             hemoglobin  : parseInt(this.state.formHemoglobin)
         }
-        axios.post('http://localhost:3004/formPatient', myFormObj)
+        axios.post('http://localhost:8080/formPatient', myFormObj)
           .then(function (response) {
             console.log(response);
         })
