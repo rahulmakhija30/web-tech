@@ -4,6 +4,7 @@ import './Home.css';
 import '../Patient/Patient'
 import Doctor from '../Doctor/Doctor'
 import MyForm from '../Patient/FormPatient';
+import VizGraphs from '../Chart/viz';
 
 import {
   getFromStorage,
@@ -231,6 +232,8 @@ class Home extends Component {
         <div>
       <Doctor/>
       <button onClick={this.backToHome}>Back to Home</button>
+      <br/><br/>
+      <VizGraphs/>
       </div>
       )
     }
@@ -298,8 +301,11 @@ class Home extends Component {
     return (
       <div>
         <Patient email={this.state.mail}/>
-        <MyForm/>
         <button onClick={this.logout}>Logout</button>
+        <br/><br/><br/><br/>
+        <MyForm/>
+        <br/><br/>
+        <VizGraphs/>
       </div>
     );
   }

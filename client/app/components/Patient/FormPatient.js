@@ -9,15 +9,15 @@ class MyForm extends Component{
     constructor(props){
         super(props)
         this.state = {
-            formName: 'John Doe',
-            formEmail: 'johndoe@example.com',
-            formAge: '42',
-            formHeight: '169',
-            formWeight: '72',
-            formBS: '110',
-            formDia: '120',
-            formSys: '80',
-            formHemoglobin: '12'
+            formName: '',
+            formEmail: '',
+            formAge: 0,
+            formHeight: 0,
+            formWeight: 0,
+            formBS: 0,
+            formDia: 0,
+            formSys: 0,
+            formHemoglobin: 0
         }
     }
 
@@ -110,7 +110,7 @@ class MyForm extends Component{
     render(){
         return(
             <form onSubmit={this.submitTheForm}>
-                <h3>Kindly fill your latest medical report here!</h3><br></br>
+                <h5>Kindly fill your latest medical report here!</h5>
 
                 <label>Name: </label>
                 <input type="text" value = {this.state.formName} onChange={this.updateName}></input>
