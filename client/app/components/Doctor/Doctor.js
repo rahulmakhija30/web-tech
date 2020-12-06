@@ -14,6 +14,9 @@ class Doctor extends Component{
         AppointmentResponse: null
     };
 }
+componentDidMount(){
+    this.getAllAppointments()
+}
 getAllAppointments=()=>{
     fetch('/api/account/get', {
         method: 'GET',
@@ -51,7 +54,7 @@ handleRemove=(email,date,name,reason)=>{
           this.getAllAppointments();
       })
 }
-showPreviousAppointment=(email)=>{
+/*showPreviousAppointment=(email)=>{
     fetch('/api/account/previous',{
         method: 'POST',
         headers:{
@@ -65,7 +68,7 @@ showPreviousAppointment=(email)=>{
     .then(json=>{
         console.log(json)
     })
-}
+}*/
 render(){
     let AppointmentList=null;
     if(this.state.gotAppointment){
@@ -116,8 +119,6 @@ render(){
         <div>
         <h>Doctor's Page</h>
         <div className="appointments">
-        <button onClick={this.getAllAppointments}>Get Appointments
-        </button>
         {AppointmentList}
         </div>
         </div>

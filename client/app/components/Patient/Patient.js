@@ -6,12 +6,13 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
+import swal from 'sweetalert';
 class Patient extends Component{
     constructor(props){
         super(props);
     this.state={
         name:'',
-        date:new Date().setMinutes(0,0,0),
+        date:new Date().setHours(new Date().getHours()+1,0,0),
         reason:'',
         disabled:[],
         previous:[]
@@ -44,8 +45,14 @@ class Patient extends Component{
           })
           .then(res => res.json())
           .then(json=>{
-              console.log("JSON",json);
-              alert(json.message)
+              //console.log("JSON",json);
+              //alert(json.message)
+              if(json.success){
+                  swal('Booked!',"Your appointment is booked successfully","success")
+              }
+              else{
+              swal("Please Note!",json.message, "error");
+              }
               this.fetchAppointment();
           })
           
