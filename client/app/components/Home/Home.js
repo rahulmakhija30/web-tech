@@ -6,6 +6,13 @@ import Doctor from '../Doctor/Doctor'
 import MyForm from '../Patient/FormPatient';
 import VizGraphs from '../Chart/viz';
 
+
+<link href ="final boot login.css" rel="stylesheet"  />
+
+/*CHECKKK FOR LOADING SYMBOL*/
+
+
+
 import {
   getFromStorage,
   setInStorage,
@@ -13,6 +20,7 @@ import {
 import Patient from '../Patient/Patient';
 
 class Home extends Component {
+  
   constructor(props) {
     super(props);
 
@@ -230,20 +238,64 @@ class Home extends Component {
     if(doctor){
       return(
         <div>
-      <Doctor/>
-      <button onClick={this.backToHome}>Back to Home</button>
+     {/* <Doctor/>
+      <button onClick={this.backToHome}>Back to Home</button>*/}
       <br/><br/>
-      <VizGraphs/>
+      <VizGraphs type={1}/>
       </div>
       )
     }
     if (isLoading) {
-      return (<div><p>Loading...</p></div>);
+      return (<div class="center">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+      <button class="buttonload">
+        <i class="fa fa-circle-o-notch fa-spin"></i>Loading..
+      </button>
+    </div>);    {/*(<div><p>Loading...</p></div>);*/}
     }
 
     if (!token) {
       return (
-        <div className="form">
+        <div>
+          
+            
+
+
+
+
+
+
+          <div className="form">
+
+            {/*TO BE INCLUDED EVERYWHERE*/}
+					    <div class="navi-bar">
+			  				<ul class="menbar">
+				          <img  src="https://www.pngarts.com/files/2/Letter-W-PNG-Image-Background.png" alt="logo" style={{maxWidth: 65 ,marginRight:'-50px' }} />
+				
+					        <li>ebDoc</li>
+
+					
+					        <li>
+					          <a  href="/frontpg" style={{color:"black"}}>Home</a>
+					        </li>
+				        
+                	<li>
+					          <a  href="/doctorspg" style={{color:"black"}}>Doctors Page</a>
+					        </li>
+					
+                  <li>
+					          <a  href="/login" style={{color:"black"}}>Login</a>
+					        </li>
+
+				      	</ul>
+					
+			
+
+		          </div>
+		
+          
+
           <div>
             {
               (signInError) ? (
@@ -291,9 +343,9 @@ class Home extends Component {
             <button onClick={this.onSignUp}>Sign Up</button>
           </div>
           <div>
-            <button onClick={this.goToDoctor}>Go to doctors page!</button>
-          </div>
-
+          {/*  <button onClick={this.goToDoctor}>Go to doctors page!</button>*/}
+        </div>
+        </div>
         </div>
       );
     }
@@ -301,14 +353,16 @@ class Home extends Component {
     return (
       <div>
         <Patient email={this.state.mail}/>
-        <button onClick={this.logout}>Logout</button>
+        <br/>
+        <button onClick={this.logout} style={{width:'300px',marginLeft:'35%',backgroundColor:'black',color:'white',height:'50px',fontSize:'30px'}}>Logout</button>
         <br/><br/><br/><br/>
         <MyForm/>
         <br/><br/>
-        <VizGraphs/>
+        <VizGraphs type={2}/>
       </div>
     );
   }
 }
+
 
 export default Home;

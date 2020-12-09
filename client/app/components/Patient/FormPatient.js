@@ -2,7 +2,7 @@
 import React, {Component} from "react";
 import axios from 'axios';
 import swal from 'sweetalert';
-
+import './patient.css';
 
 class MyForm extends Component{
 
@@ -109,47 +109,54 @@ class MyForm extends Component{
 
     render(){
         return(
+            <div class="container">
+            
             <form onSubmit={this.submitTheForm}>
-                <h5>Kindly fill your latest medical report here!</h5>
-
+                <h3>Kindly fill in your latest medical reports here!</h3>
+                
                 <label>Name: </label>
-                <input type="text" value = {this.state.formName} onChange={this.updateName}></input>
+                <input type="text" value = {this.state.formName} onChange={this.updateName} style={{marginLeft:'130px'}}></input>
                 <br></br>
+                
 
+                
                 <label>Email ID: </label>
-                <input type="email" value = {this.state.formEmail} onChange = {this.updateEmail}></input>
+                <input type="email" value = {this.state.formEmail} onChange = {this.updateEmail} style={{marginLeft:'110px'}}></input>
                 <br></br>
+                
 
                 <label>Age: </label>
-                <input type="number" value = {this.state.formAge} onChange = {this.updateAge}></input>
+                <input type="number" value = {this.state.formAge} onChange = {this.updateAge} style={{marginLeft:'145px'}}></input>
                 <br></br>
 
                 <label>Height: </label>
-                <input type="number" value = {this.state.formHeight} onChange = {this.updateHeight}></input>
+                <input type="number" value = {this.state.formHeight} onChange = {this.updateHeight} style={{marginLeft:'127px'}}></input>
                 <br></br>
 
                 <label>Weight: </label>
-                <input type="number" value = {this.state.formWeight} onChange = {this.updateWeight}></input>
+                <input type="number" value = {this.state.formWeight} onChange = {this.updateWeight} style={{marginLeft:'125px'}}></input>
                 <br></br>
 
                 <label>Blood Sugar: </label>
-                <input type="number" value = {this.state.formBS} onChange = {this.updateBS}></input>
+                <input type="number" value = {this.state.formBS} onChange = {this.updateBS} style={{marginLeft:'85px'}}></input>
                 <br></br>
 
                 <label>Blood pressure Diastolic: </label>
-                <input type="number" value = {this.state.formDia} onChange = {this.updateDia}></input>
+                <input type="number" value = {this.state.formDia} onChange = {this.updateDia} style={{marginLeft:'0px'}}></input>
                 <br></br>
 
                 <label>Blood pressure Systolic: </label>
-                <input type="number" value = {this.state.formSys} onChange = {this.updateSys}></input>
+                <input type="number" value = {this.state.formSys} onChange = {this.updateSys} style={{marginLeft:'2px'}}></input>
                 <br></br>
 
-                <label>Hemoglobin: </label>
-                <input type="number" value = {this.state.formHemoglobin} onChange = {this.updateHemoglobin}></input>
+                <label>Haemoglobin: </label>
+                <input type="number" value = {this.state.formHemoglobin} onChange = {this.updateHemoglobin} style={{marginLeft:'75px'}}></input>
                 <br></br>
 
-                <button type="submit">Submit the info!</button>
+                <button type="submit" style={{backgroundColor:'black',color:'white',width:'150px'}}>Submit info!</button>
             </form>
+            </div>
+        
         )
     }
 }

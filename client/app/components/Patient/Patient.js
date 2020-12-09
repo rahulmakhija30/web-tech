@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Collapsible from 'react-collapsible';
@@ -7,6 +7,8 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import swal from 'sweetalert';
+import './patient1.css';
+import { StylesProvider } from '@material-ui/core';
 class Patient extends Component{
     constructor(props){
         super(props);
@@ -163,14 +165,51 @@ class Patient extends Component{
         }
         //console.log("closed",closedTimes)
         return (
+            /*<ImageBackground source={"https://maxemhealthurgentcare.com/wp-content/uploads/2020/02/Nurse.jpeg"}style ={StylesProvider.header}>*/
+           
+            
+
+
+
+
+
+
+
+
+            
+            
             <div>
+                {/*TO BE INCLUDED EVERYWHERE*/}
+		
+		       {/* {<div class="head">*/}
+                    <div class="navi">
+                       <ul class="menubar">
+                            <img  src="https://www.pngarts.com/files/2/Letter-W-PNG-Image-Background.png" alt="logo" style={{maxWidth: 65 ,marginRight:'-50px' }} />
+                            <li>ebDoc</li>
+                            <li>
+                                <a  href="/frontpg" style={{color:"black"}}>Home</a>
+                            </li>
+                            
+                            <li>
+                                <a  href="/doctorspg" style={{color:"black"}}>Doctors Page</a>
+                            </li>
+                            <li>
+                                <a  href="/login" style={{color:"black"}}>Login</a>
+                            </li>
+
+                        </ul>
+                    </div>	
+               {/* </div>*/}
+                <div class="background">
                 <div className="booking">
-                    <p>Hello, Patient</p>
-                    Name:
+                    <br/>
+                    <br/>
+                    <h4>To Book an Appointment</h4><br/>
+                    <b>Name: {" "} {" "} {" "} {" "} </b>
                     <input type="text" onChange={this.handleNameChange}></input>
-                    Reason:
+                    <br/><br/><b>Reason: {""}</b>
                     <input type="text" onChange={this.handleReasonChange}></input>
-                    Date:
+                    <br/><br/><b>Date: {""}</b>
                     <DatePicker
                     selected={this.state.date} 
                     onChange={this.handleDateChange} 
@@ -179,7 +218,7 @@ class Patient extends Component{
                     filterDate={this.isWeekday}
                     excludeTimes={this.state.disabled.concat(closedTimes)}
                     dateFormat="MMMM d, yyyy h:mm aa" />
-                    <button onClick={this.bookAppoinment}>Book an appointment!</button>
+                    <button onClick={this.bookAppoinment } style={{backgroundColor:'black',color:'white'}} >Book an appointment! </button>
                 </div>
                 <div className="current">
                 </div>
@@ -190,6 +229,7 @@ class Patient extends Component{
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     >
+                    
                     <Typography>Show Previous Appointments</Typography>
                     </AccordionSummary>
                     <AccordionDetails style={{overflowY:'scroll',maxHeight:'200px'}}>
@@ -200,6 +240,8 @@ class Patient extends Component{
                 </Accordion>
                 </div>
             </div>
+            </div>
+           /* </ImageBackground>*/
         );
     }
 }

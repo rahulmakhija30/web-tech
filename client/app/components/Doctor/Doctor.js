@@ -88,12 +88,14 @@ render(){
                 )
             })
             return(
+                <div class="backimg">
                 <div key={appointment.email}>
-                    <p>
+                    
+                    <p><b>
                     Date:   {new Date(appointment.Date).toLocaleString()}<br/>
                     Reason:{appointment.Reason}<br/>
-                    Name : {appointment.Name}
-                    </p>
+                    Name : {appointment.Name}<br/>
+                    </b></p>
                 <Accordion style={{width:'20%',marginLeft:'0%',borderRadius:'10px'}}>
                     <AccordionSummary
                     //expandIcon={<ExpandMoreIcon />}
@@ -106,10 +108,12 @@ render(){
                     <Typography>
                        {previousAppointmentList}
                     </Typography>
+                    
                     </AccordionDetails>
-                </Accordion>
+                     </Accordion>
                     <textarea id={appointment.email.slice(0,appointment.email.indexOf('@'))} placeholder="Enter prescription"></textarea>
-                    <button onClick={()=>this.handleRemove(appointment.email,appointment.Date,appointment.Name,appointment.Reason)}>Remove</button>
+                   <br/> <br/><button onClick={()=>this.handleRemove(appointment.email,appointment.Date,appointment.Name,appointment.Reason)} style={{width:'200px',backgroundColor:'#00001a',color:'white'}}>Remove</button><br/>
+                </div>
                 </div>
             )
         })
@@ -117,7 +121,11 @@ render(){
 
     return(
         <div>
-        <h>Doctor's Page</h>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+       {/* <h>Doctor's Page</h>*/}
         <div className="appointments">
         {AppointmentList}
         </div>

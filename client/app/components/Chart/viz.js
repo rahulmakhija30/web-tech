@@ -3,6 +3,9 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import { replaceOne } from "../../../../server/models/FormModel";
 import {Line} from 'react-chartjs-2';
+import './viz.css';
+import  Doctor from '../Doctor/Doctor';
+
 
 
 class VizGraphs extends Component{
@@ -230,19 +233,60 @@ class VizGraphs extends Component{
                 }
             ]
         }
+
+        if(this.props.type==1){
        
         return(
             <div>
+            
+                {/*TO BE INCLUDED EVERYWHERE*/}
+		
+		
+			
+			<div class="navibar">
+				
+				<ul class="menu">
+				<img  src="https://www.pngarts.com/files/2/Letter-W-PNG-Image-Background.png" alt="logo" style={{maxWidth: 65 ,marginRight:'-50px' }} />
+				
+					<li>ebDoc</li>
+
+					
+					<li>
+					<a  href="/frontpg" style={{color:"black"}}>Home</a>
+					</li>
+					<li>
+					<a  href="/doctorspg" style={{color:"black"}}>Doctors Page</a>
+					</li>
+					<li>
+					<a  href="/login" style={{color:"black"}}>Login</a>
+					</li>
+
+					</ul>
+					
+			</div>	
+
+		
+		
+            <Doctor/>
+                
+           
+
+
+
+
+            <div class="back">
+            <div>
 
                 <form onSubmit={this.getViz}> 
-                    <h5>Please enter the patient's email ID to get a neat visualizaton of the reports:</h5>
+                   <br/><br/>
+                    <h3>Please enter the patient's email ID to get a neat visualizaton of the reports:</h3>
                     <label>Email: </label>
                     <input type="email" value = {this.state.email} onChange={this.getEmail}></input>
-                    <br/><button type="submit"> Get me the report! </button>
+                    <br/><button type="submit" style={{backgroundColor:'black',color:'white'}}> Get me the report! </button>
                 </form><br/><br/>
                 
                 <div>
-                    <h5>{this.state.name}'s latest medical report:</h5>
+                    <h3>{this.state.name}'s Latest Medical Report:</h3>
                     Name: {this.state.name}<br/>
                     Age: {this.state.age}yrs<br/>
                     Height: {this.state.height[this.state.heightLen.length-1]}cm<br/>
@@ -253,26 +297,110 @@ class VizGraphs extends Component{
                 </div>
 
                 <br/><br/>
-                <h5>Visualisation of {this.state.name}'s reports</h5>
+                <h3>Visualisation of {this.state.name}'s reports</h3>
                 <br/>
 
                 <div style={{height:600, width:1000}}>
                     <Line data = {dataHeight}></Line>
                     <h6 style={{display: 'flex', justifyContent: 'center'}}>Your Height and Weight</h6>
                 </div>
-
+                <hr/>
+                <br/><br/>
                 <div style={{height:600, width:1000}}>
                     <Line data = {databshemo}></Line>
                     <h6 style={{display: 'flex', justifyContent: 'center'}}>Your Blood sugar and Hemoglobin levels</h6>
                 </div>
-
+                <hr/>
+                <br/><br/>
                 <div style={{height:500, width:1000}}>
                     <Line data = {databp}></Line>
                     <h6 style={{display: 'flex', justifyContent: 'center'}}>Your Blood pressure levels</h6>
                 </div>
-                
+             </div>   
             </div>
-        )
+            </div>
+        )}else {
+            return(
+                <div>
+                
+                    {/*TO BE INCLUDED EVERYWHERE*/}
+            
+            
+                
+                <div class="navibar">
+                    
+                    <ul class="menu">
+                    <img  src="https://www.pngarts.com/files/2/Letter-W-PNG-Image-Background.png" alt="logo" style={{maxWidth: 65 ,marginRight:'-50px' }} />
+                    
+                        <li>ebDoc</li>
+    
+                        
+                        <li>
+                        <a  href="/frontpg" style={{color:"black"}}>Home</a>
+                        </li>
+                        <li>
+                        <a  href="/doctorspg" style={{color:"black"}}>Doctors Page</a>
+                        </li>
+                        <li>
+                        <a  href="/login" style={{color:"black"}}>Login</a>
+                        </li>
+    
+                        </ul>
+                        
+                </div>	
+    
+            
+            
+    
+    
+    
+                <div class="back">
+                <div>
+    
+                    <form onSubmit={this.getViz}> 
+                       <br/><br/>
+                        <h4>Please enter the patient's email ID to get a neat visualizaton of the reports:</h4>
+                        <label>Email: </label>
+                        <input type="email" value = {this.state.email} onChange={this.getEmail}></input>
+                        <br/><button type="submit" style={{backgroundColor:'black',color:'white'}}> Get me the report! </button>
+                    </form><br/><br/>
+                    
+                    <div>
+                        <h4>{this.state.name}'s latest medical report:</h4>
+                        Name: {this.state.name}<br/>
+                        Age: {this.state.age}yrs<br/>
+                        Height: {this.state.height[this.state.heightLen.length-1]}cm<br/>
+                        Weight: {this.state.weight[this.state.heightLen.length-1]}kg<br/>
+                        Blood sugar: {this.state.bloodSugar[this.state.heightLen.length-1]}mg/dL<br/>
+                        Blood pressure: {this.state.bpDia[this.state.heightLen.length-1]}/{this.state.bpSys[this.state.heightLen.length-1]} mm/Hg<br/>
+                        Hemoglobin: {this.state.hemoglobin[this.state.heightLen.length-1]}g/dL<br/>
+                    </div>
+    
+                    <br/><br/>
+                    <h4>Visualisation of {this.state.name}'s reports</h4>
+                    <br/>
+    
+                    <div style={{height:600, width:1000}}>
+                        <Line data = {dataHeight}></Line>
+                        <h6 style={{display: 'flex', justifyContent: 'center'}}>Your Height and Weight</h6>
+                    </div>
+                    <hr/>
+                    <br/><br/>
+                    <div style={{height:600, width:1000}}>
+                        <Line data = {databshemo}></Line>
+                        <h6 style={{display: 'flex', justifyContent: 'center'}}>Your Blood sugar and Hemoglobin levels</h6>
+                    </div>
+                    <hr/>
+                    <br/><br/>
+                    <div style={{height:500, width:1000}}>
+                        <Line data = {databp}></Line>
+                        <h6 style={{display: 'flex', justifyContent: 'center'}}>Your Blood pressure levels</h6>
+                    </div>
+                 </div>   
+                </div>
+                </div>
+                )
+        }
     }
 }
 
