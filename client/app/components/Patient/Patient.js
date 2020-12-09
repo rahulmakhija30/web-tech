@@ -14,7 +14,7 @@ class Patient extends Component{
         super(props);
     this.state={
         name:'',
-        date:new Date().setHours(new Date().getHours()+1,0,0),
+        date:new Date().setDate(new Date().getDate()+1),
         reason:'',
         disabled:[],
         previous:[]
@@ -214,7 +214,7 @@ class Patient extends Component{
                     selected={this.state.date} 
                     onChange={this.handleDateChange} 
                     showTimeSelect
-                    minDate={new Date()}
+                    minDate={new Date().setDate(new Date().getDate()+1)}
                     filterDate={this.isWeekday}
                     excludeTimes={this.state.disabled.concat(closedTimes)}
                     dateFormat="MMMM d, yyyy h:mm aa" />

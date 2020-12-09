@@ -2,7 +2,7 @@
 import React, {Component} from "react";
 import axios from 'axios';
 import swal from 'sweetalert';
-import './patient.css';
+import './Patient.css';
 
 class MyForm extends Component{
 

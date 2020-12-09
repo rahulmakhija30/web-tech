@@ -143,7 +143,7 @@ app.post('/api/account/book', (req, res, next) => {
          
         // Draw a string of text toward the top of the page
         const fontSize = 30
-        page.drawText('Medical Prescription', {
+        page.drawText('webDoc Medical Prescription', {
           x: 150,
           y: 700,
           size: fontSize,
@@ -152,35 +152,35 @@ app.post('/api/account/book', (req, res, next) => {
         })
         page.drawText("Name :"+name, {
           x: 50,
-          y: 650,
-          size: 10,
+          y: 620,
+          size: 20,
           //font: timesRomanFont,
           color: rgb(0, 0, 0),
         })
         page.drawText("Date :"+new Date(date).toLocaleString(), {
-          x: 250,
-          y: 650,
-          size: 10,
+          x: 50,
+          y: 590,
+          size: 20,
           //font: timesRomanFont,
           color: rgb(0, 0, 0),
         })
         page.drawText("Reason :"+reason, {
-          x: 450,
-          y: 650,
-          size: 10,
+          x: 50,
+          y: 560,
+          size: 20,
           //font: timesRomanFont,
           color: rgb(0, 0, 0),
         })
         page.drawText("Prescription :"+prescription, {
           x: 50,
-          y: 620,
-          size: 10,
+          y: 530,
+          size: 20,
           //font: timesRomanFont,
           color: rgb(0, 0, 0),
         })
          
         // Serialize the PDFDocument to bytes (a Uint8Array)
-        fs.writeFileSync('./test1.pdf', await pdfDoc.save());
+        fs.writeFileSync('./prescription.pdf', await pdfDoc.save());
         let transport = nodemailer.createTransport({
           service:'gmail',
           auth:{
@@ -196,13 +196,13 @@ app.post('/api/account/book', (req, res, next) => {
           attachments:[
             {
               name:'prescription.pdf',
-              path:'./test1.pdf'
+              path:'./prescription.pdf'
             }
           ]
         }
         transport.sendMail(message,function(){
           console.log("Email Sent")
-          fs.unlink('./test1.pdf',function(){
+          fs.unlink('./prescription.pdf',function(){
             console.log("Deleted")
           })
         })
