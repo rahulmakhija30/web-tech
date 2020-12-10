@@ -24,4 +24,4 @@ Medical related patient information is presented in the form of graphs.
       -> go to the project directory
       -> run 'npm install' command
       -> run 'node server' command
-      -> enjoy the clinic-management app on your PC
+      -> enjoy the clinic-management web app on your PC
