@@ -20,7 +20,7 @@ Medical related patient information is presented in the form of graphs.
       Ritu V Malage      PES1UG19CS390
       
 ### To run the app locally:
-      -> Clone/download the code on your PC
+      -> Clone/download the project on your PC
       -> go to the project directory
       -> run 'npm install' command
       -> run 'node server' command
