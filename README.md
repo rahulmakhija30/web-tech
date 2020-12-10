@@ -15,7 +15,7 @@ Medical related patient information is presented in the form of graphs.
       pdf-lib
 
 ### A project by: 
-      Pranav R Hegde     PES1UG19CS343 <br/>
-      Rahul D Makhija    PES1UG19CS368 <br/>
+      Pranav R Hegde     PES1UG19CS343 
+      Rahul D Makhija    PES1UG19CS368 
       Ritu V Malage      PES1UG19CS390
 
