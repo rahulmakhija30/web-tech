@@ -18,4 +18,10 @@ Medical related patient information is presented in the form of graphs.
       Pranav R Hegde     PES1UG19CS343 
       Rahul D Makhija    PES1UG19CS368 
       Ritu V Malage      PES1UG19CS390
-
+      
+### To run the app locally:
+      -> Clone/download the code on your PC
+      -> go to the project directory
+      -> run 'npm install' command
+      -> run 'node server' command
+      -> enjoy the clinic-management app on your PC
