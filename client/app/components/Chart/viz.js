@@ -93,12 +93,18 @@ class VizGraphs extends Component{
         })
     }
 
+    updateAge = (age1) => {
+        this.setState({
+            age: age1
+        })
+    }
+
     sweetal = () =>{
         swal ( "Oops" ,  "The patient you're trynna search either doesn't exist on the planet Earth or is missing from our database!" ,  "error" );
     }
 
     getViz = (event) =>{
-        var name1 = '', height1 = [], weight1 = [], bloodSugar1 = [], bpDia1 = [], bpSys1 = [], hemoglobin1 = [];
+        var name1 = '', age1 = 0, height1 = [], weight1 = [], bloodSugar1 = [], bpDia1 = [], bpSys1 = [], hemoglobin1 = [];
 
         event.preventDefault();
         var that = this;
@@ -117,9 +123,11 @@ class VizGraphs extends Component{
                 bpDia1 = json.patient[0].bpDia;
                 hemoglobin1 = json.patient[0].hemoglobin;
                 name1 = json.patient[0].name;
+                age1 = json.patient[0].age;
                 that.setState({
                     height: json.patient[0].height,
-                    name: json.patient[0].name
+                    name: json.patient[0].name,
+                    age: json.patient[0].age
                 }, ()=>{
                     this.updateHeight(height1);
                     this.updateName(name1);
@@ -128,6 +136,7 @@ class VizGraphs extends Component{
                     this.updateBpDia(bpDia1);
                     this.updateBpSys(bpSys1);
                     this.updateHemoglobin(hemoglobin1);
+                    this.updateAge(age1);
                 })
             }).catch((error)=>{
                 throw error;
